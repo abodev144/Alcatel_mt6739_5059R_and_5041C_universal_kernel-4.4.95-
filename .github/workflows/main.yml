@@ -25,6 +25,11 @@ jobs:
     - name: Verify DrvGen.py location
       run: ls ${GITHUB_WORKSPACE}/kernel-4.4.95/tools/dct
 
+    - name: Apply dtc build fix
+      run: |
+        # Patch Makefile.host to avoid multiple definition of 'yylloc'
+        sed -i 's/$(objtree)\/scripts\/dtc\/dtc-parser.tab.o//g' ${GITHUB_WORKSPACE}/kernel-4.4.95/scripts/Makefile.host
+
     - name: Build kernel
       run: |
         cd kernel-4.4.95
