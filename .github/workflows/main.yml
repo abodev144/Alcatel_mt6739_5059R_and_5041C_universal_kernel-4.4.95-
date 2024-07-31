@@ -1,0 +1,26 @@
+name: Build Kernel
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up environment
+      run: sudo apt-get install -y make gcc-arm-linux-gnueabi
+
+    - name: Build kernel
+      run: |
+        cd kernel-4.4.95
+        make O=OUT/5059D/ ARCH=arm CROSS_COMPILE=${{ github.workspace }}/tools/arm-linux-androideabi-4.9/bin/arm-linux-androideabi- u5a_plus_o1_defconfig
+        make O=OUT/5059D/ ARCH=arm CROSS_COMPILE=${{ github.workspace }}/tools/arm-linux-androideabi-4.9/bin/arm-linux-androideabi- -j6
