@@ -23,11 +23,11 @@ jobs:
         sudo apt-get install -y make gcc-arm-linux-gnueabi python2
 
     - name: Verify DrvGen.py location
-      run: ls ${GITHUB_WORKSPACE}/tools/dct
+      run: ls ${GITHUB_WORKSPACE}/kernel-4.4.95/tools/dct
 
     - name: Build kernel
       run: |
         cd kernel-4.4.95
         make O=OUT/5059D/ ARCH=arm CROSS_COMPILE=${GITHUB_WORKSPACE}/tools/arm-linux-androideabi-4.9/bin/arm-linux-androideabi- u5a_plus_o1_defconfig
-        sed -i 's/python/python2/' ${GITHUB_WORKSPACE}/tools/dct/DrvGen.py
+        sed -i 's/python/python2/' ${GITHUB_WORKSPACE}/kernel-4.4.95/tools/dct/DrvGen.py
         make O=OUT/5059D/ ARCH=arm CROSS_COMPILE=${GITHUB_WORKSPACE}/tools/arm-linux-androideabi-4.9/bin/arm-linux-androideabi- -j6
