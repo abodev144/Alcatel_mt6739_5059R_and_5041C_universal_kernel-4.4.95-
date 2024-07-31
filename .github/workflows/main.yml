@@ -1,12 +1,9 @@
-name: Build Kernel
+name: Build workflow
 
 on:
   push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build:
