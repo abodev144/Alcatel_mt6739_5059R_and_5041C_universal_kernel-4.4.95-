@@ -14,10 +14,13 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up environment
-      run: sudo apt-get install -y make gcc-arm-linux-gnueabi
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y make gcc-arm-linux-gnueabi python2
 
     - name: Build kernel
       run: |
         cd kernel-4.4.95
         make O=OUT/5059D/ ARCH=arm CROSS_COMPILE=${{ github.workspace }}/tools/arm-linux-androideabi-4.9/bin/arm-linux-androideabi- u5a_plus_o1_defconfig
+        sed -i 's/python/python2/' ${GITHUB_WORKSPACE}/tools/dct/DrvGen.py
         make O=OUT/5059D/ ARCH=arm CROSS_COMPILE=${{ github.workspace }}/tools/arm-linux-androideabi-4.9/bin/arm-linux-androideabi- -j6
